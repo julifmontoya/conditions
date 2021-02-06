@@ -1,4 +1,4 @@
-# deals
+# conditions
 
 ## Project setup
 ```
