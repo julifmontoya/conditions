@@ -1,5 +1,8 @@
 # conditions
 
+User: fakeuser@fakeuser.com
+Pass: Fakeuser1*
+
 ## Project setup
 ```
 npm install
