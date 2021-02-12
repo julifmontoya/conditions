@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-center" v-if="request">
+   <div class="text-center" v-if="request">
       <div class="sk-circle">
         <div class="sk-circle1 sk-child"></div>
         <div class="sk-circle2 sk-child"></div>
@@ -74,7 +74,7 @@
                           <option
                             v-for="(option, index) in options"
                             :key="index"
-                            :value="option.id"
+                            :value="`cancel_option_${option.id}`"
                           >
                             {{ option.nombre }}
                           </option>
@@ -84,7 +84,7 @@
                             class="row fwp"
                             v-for="(cancel, index) in cancelaciones"
                             :key="index"
-                            :id="`option_${cancel.opcion}`"
+                            :value="`cancel_option_${cancel.opcion}`"
                           >
                             <div class="form-group mr-20">
                               <label class="semi-bold label-form"
@@ -297,11 +297,14 @@
                   <div class="overflow-div">
                     <div class="wrap-modal">
                       <div class="modal__occupancy">
-                        <select class="form-control">
+                        <select class="form-control" v-model="selectedOccup">
+                          <option disabled value="">
+                            Por favor, seleccione uno
+                          </option>
                           <option
                             v-for="(option, index) in options"
                             :key="index"
-                            :value="option.id"
+                            :value="`occupancy_option_${option.id}`"
                           >
                             {{ option.nombre }}
                           </option>
@@ -311,7 +314,11 @@
                             class="row fwp"
                             v-for="(ocupacion, index) in ocupaciones"
                             :key="index"
-                            :id="`occupancy_option_${ocupacion.opcion}`"
+                            v-show="
+                              shouldDisplayOccup(
+                                `occupancy_option_${ocupacion.opcion}`
+                              )
+                            "
                           >
                             <div class="form-group mr-20">
                               <label class="semi-bold label-form"
@@ -461,7 +468,7 @@
                           <option
                             v-for="(option, index) in options"
                             :key="index"
-                            :value="option.id"
+                            :value="`child-rates_option_${option.id}`"
                           >
                             {{ option.nombre }}
                           </option>
@@ -471,7 +478,7 @@
                             class="row fwp"
                             v-for="(tarifa, index) in tarifas"
                             :key="index"
-                            :id="`child-rates_option_${tarifa.opcion}`"
+                            :value="`child-rates_option_${tarifa.opcion}`"
                           >
                             <div class="form-group mr-20">
                               <label class="semi-bold label-form"
@@ -1087,11 +1094,14 @@ import service from "@/services/service.js";
 //import { numeric } from "vuelidate/lib/validators";
 
 export default {
-  components: {},
+  components: {
+
+  },
   data() {
     return {
       dataReady: false,
       request: false,
+      selectedOccup: "",
       options: {},
       cancelaciones: [{ dias: "", tipoDescuento: "", valor: "" }],
       ocupaciones: [{ maxAdultos: "", maxNinos: "", numeroPersonas: "" }],
@@ -1506,7 +1516,26 @@ export default {
           }
         }
         console.log(data);
+        if (this.menuname == "Actividades") {
+          this.$router.push({
+            name: "ActividadesCalendar",
+            params: { id: `${this.$route.params.id}` },
+          });
+        } else if (this.menuname == "Alojamientos") {
+          this.$router.push({
+            name: "AlojamientosCalendar",
+            params: { id: `${this.$route.params.id}` },
+          });
+        } else {
+          this.$router.push({
+            name: "SegurosCalendar",
+            params: { id: `${this.$route.params.id}` },
+          });
+        }
       }
+    },
+    shouldDisplayOccup: function (value) {
+      return this.selectedOccup === value;
     },
     sumOccupation() {
       this.ocupaciones.numeroPersonas =
