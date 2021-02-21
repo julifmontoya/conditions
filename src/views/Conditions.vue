@@ -1,6 +1,6 @@
 <template>
   <div>
-   <div class="text-center" v-if="request">
+    <div class="text-center" v-if="request">
       <div class="sk-circle">
         <div class="sk-circle1 sk-child"></div>
         <div class="sk-circle2 sk-child"></div>
@@ -120,13 +120,7 @@
                                 v-model="cancel.tipoDescuento"
                                 class="form-control"
                               >
-                                <option
-                                  v-for="(typeDiscount, index) in typesDiscount"
-                                  :key="index"
-                                  :value="lower(typeDiscount)"
-                                >
-                                  {{ typeDiscount }}
-                                </option>
+                                <option value="porcentaje">Porcentaje</option>
                               </select>
                             </div>
                             <div class="form-group">
@@ -1094,9 +1088,7 @@ import service from "@/services/service.js";
 //import { numeric } from "vuelidate/lib/validators";
 
 export default {
-  components: {
-
-  },
+  components: {},
   data() {
     return {
       dataReady: false,
