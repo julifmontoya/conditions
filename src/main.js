@@ -66,3 +66,12 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
+window.validateFocusElement = function() {
+  var elm = document.querySelector(
+    ".form-group--error input,.form-group--error textarea,.form-group--error select"
+  );
+  if (elm) {
+    elm.focus();
+  }
+};
