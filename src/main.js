@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import service from "@/services/service.js";
+import VueCollapse from "vue2-collapse";
 require("@/store/subscriber");
 
 store.dispatch("auth/attempt", localStorage.getItem("token"));
@@ -29,6 +30,7 @@ import Vuelidate from "vuelidate";
 Vue.use(AirbnbStyleDatepicker, datepickerOptions);
 Vue.use(VModal);
 Vue.use(Vuelidate);
+Vue.use(VueCollapse);
 
 const datepickerOptions = {
   sundayFirst: false,
