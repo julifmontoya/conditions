@@ -7,6 +7,7 @@
       :value="formatDates(dateOne, dateTwo)"
       :name="name"
       @click="inputClicked()"
+      readonly
     />
     <svg
       version="1.1"
@@ -51,6 +52,7 @@
     <AirbnbStyleDatepicker
       :trigger-element-id="id"
       :mode="mode"
+      :disabled-dates="disabledDates"
       :fullscreen-mobile="true"
       :date-one="dateOne"
       :date-two="dateTwo"
@@ -68,11 +70,13 @@
       @date-one-selected="
         (val) => {
           dateOne = val;
+          dateOneSelected();
         }
       "
       @date-two-selected="
         (val) => {
           dateTwo = val;
+          dateTwoSelected();
         }
       "
     />
@@ -80,8 +84,10 @@
 </template>
 
 <script>
+import Vue from "vue";
 import format from "date-fns/format";
 import { EventBus } from "../bus.js";
+import AirbnbStyleDatepicker from "vue-airbnb-style-datepicker";
 
 export default {
   props: {
@@ -93,6 +99,7 @@ export default {
     name: String,
     from: String,
     to: String,
+    disabledDates: Array,
   },
   data() {
     return {
@@ -100,6 +107,12 @@ export default {
       dateOne: this.from,
       dateTwo: this.to,
     };
+  },
+  created() {
+    Vue.use(
+      AirbnbStyleDatepicker,
+      window.datepickerOptions(this.$route.params.locale)
+    );
   },
   methods: {
     formatDates(dateOne, dateTwo) {
@@ -114,6 +127,12 @@ export default {
     },
     inputClicked() {
       EventBus.$emit("input-clicked", true);
+    },
+    dateOneSelected() {
+      EventBus.$emit("date-from", this.dateOne);
+    },
+    dateTwoSelected() {
+      EventBus.$emit("date-to", this.dateTwo);
     },
   },
 };
