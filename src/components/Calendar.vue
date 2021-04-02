@@ -142,24 +142,19 @@ export default {
 .asd__day-button {
   outline: none;
 }
-
 .asd__month-name {
   font-size: 1.13em !important;
   line-height: 2 !important;
 }
-
 .asd__change-month-button > button:hover {
   border: 1px solid var(--color-primary) !important;
 }
-
 .asd__change-month-button > button > svg {
   fill: var(--color-primary) !important;
 }
-
 .asd__change-month-button > button:hover > svg {
   fill: var(--color-primary-hover) !important;
 }
-
 .asd__day.asd__day--enabled.asd__day--selected.asd__selected-date-one,
 .asd__day.asd__day--enabled.asd__day--selected.asd__selected-date-two {
   border: 0 !important;
@@ -168,7 +163,6 @@ export default {
   border-color: var(--color-primary) !important;
   border-radius: 2px !important;
 }
-
 .asd__day.asd__day--enabled.asd__day--hovered,
 .asd__day.asd__day--enabled.asd__day--in-range {
   border: 0 !important;
@@ -176,27 +170,22 @@ export default {
   background: #cdf !important;
   border-color: var(--color-primary) !important;
 }
-
 .asd__wrapper {
   border: 1px solid var(--color-border-input);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(68, 68, 68, 0.2);
 }
-
 .asd__wrapper--full-screen {
   z-index: 100 !important;
 }
-
 .asd__day--enabled {
   border: 0 !important;
 }
-
 .asd__mobile-close {
   top: 12px !important;
   right: 15px !important;
   background: white;
 }
-
 .asd__mobile-header h3 {
   font-size: 1.25em !important;
 }
