@@ -22,44 +22,18 @@ service.interceptors.response.use(
   }
 );
 
-import AirbnbStyleDatepicker from "vue-airbnb-style-datepicker";
 import "vue-airbnb-style-datepicker/dist/vue-airbnb-style-datepicker.min.css";
 import VModal from "vue-js-modal";
 import Vuelidate from "vuelidate";
 
-Vue.use(AirbnbStyleDatepicker, datepickerOptions);
 Vue.use(VModal);
 Vue.use(Vuelidate);
 Vue.use(VueCollapse);
 
-const datepickerOptions = {
-  sundayFirst: false,
-  dateLabelFormat: "dddd, MMMM D, YYYY",
-  days: [
-    "Lunes",
-    "Martes",
-    "Miercoles",
-    "Jueves",
-    "Viernes",
-    "Sábado",
-    "Domingo",
-  ],
-  daysShort: ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
-  monthNames: [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ],
-};
+window.datepickerOptions = function () {
+  var obj = {};
+  return obj;
+}
 
 Vue.config.productionTip = false;
 
@@ -69,7 +43,7 @@ new Vue({
   render: (h) => h(App),
 }).$mount("#app");
 
-window.validateFocusElement = function() {
+window.validateFocusElement = function () {
   var elm = document.querySelector(
     ".form-group--error input,.form-group--error textarea,.form-group--error select"
   );
