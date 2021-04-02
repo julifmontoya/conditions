@@ -468,3 +468,19 @@ button.cross {
   transition: max-height 0.3s ease-in;
   max-height: 100%;
 }
+/* ==========================================================================
+   Validation
+ ========================================================================== */
+ .form-group--error input,
+ .form-group--error select,
+ .form-group--error textarea,
+ .form-group--error label::before,
+ .form-group--error .vue-tel-input,
+ .form-group--error label.radio span {
+   border-color: var(--color-danger) !important;
+ }
+ .validation-error {
+   color: var(--color-danger);
+   font-size: inherit;
+   margin: 5px 0 0 0;
+ }
