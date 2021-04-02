@@ -1382,7 +1382,7 @@ export default {
           window.validateFocusElement();
         });
       } else {
-        let data;
+        //let data;
         let body = {};
 
         body["cancelaciones"] = this.cancelaciones;
@@ -1490,8 +1490,9 @@ export default {
           }
         }
         body["adicionales"] = adicionales;
+        console.log(body);
 
-        if (this.$route.name == "ConditionsCreate") {
+        /*         if (this.$route.name == "ConditionsCreate") {
           try {
             data = await service.post(`conditions/crear`, body);
           } catch (e) {
@@ -1523,7 +1524,7 @@ export default {
             name: "SegurosCalendar",
             params: { id: `${this.$route.params.id}` },
           });
-        }
+        } */
       }
     },
     shouldDisplayOccup: function (value) {
