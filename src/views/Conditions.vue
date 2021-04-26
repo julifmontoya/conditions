@@ -1,21 +1,5 @@
 <template>
   <div>
-    <div class="text-center" v-if="request">
-      <div class="sk-circle">
-        <div class="sk-circle1 sk-child"></div>
-        <div class="sk-circle2 sk-child"></div>
-        <div class="sk-circle3 sk-child"></div>
-        <div class="sk-circle4 sk-child"></div>
-        <div class="sk-circle5 sk-child"></div>
-        <div class="sk-circle6 sk-child"></div>
-        <div class="sk-circle7 sk-child"></div>
-        <div class="sk-circle8 sk-child"></div>
-        <div class="sk-circle9 sk-child"></div>
-        <div class="sk-circle10 sk-child"></div>
-        <div class="sk-circle11 sk-child"></div>
-        <div class="sk-circle12 sk-child"></div>
-      </div>
-    </div>
     <div v-if="dataReady">
       <main class="wrapper-interior">
         <div class="content-general">
@@ -120,7 +104,13 @@
                                 v-model="cancel.tipoDescuento"
                                 class="form-control"
                               >
-                                <option value="porcentaje">Porcentaje</option>
+                                <option
+                                  v-for="(typeDiscount, index) in typesDiscount"
+                                  :key="index"
+                                  :value="lower(typeDiscount)"
+                                >
+                                  {{ typeDiscount }}
+                                </option>
                               </select>
                             </div>
                             <div class="form-group">
@@ -188,8 +178,8 @@
                   </div>
                 </modal>
                 <div class="table-div mt-15">
-                  <table class="table table--expando-row">
-                    <thead>
+                  <table class="table table-js">
+                    <thead class="tablehead-js">
                       <tr>
                         <th>Opciones</th>
                         <th>Dias antes</th>
@@ -199,47 +189,70 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td colspan="5">
-                          <button class="btn__expando-row link-button">
-                            <svg
-                              version="1.1"
-                              xmlns="http://www.w3.org/2000/svg"
-                              xmlns:xlink="http://www.w3.org/1999/xlink"
-                              x="0px"
-                              y="0px"
-                              width="451.847px"
-                              height="451.847px"
-                              viewBox="0 0 451.847 451.847"
-                              style="enable-background: new 0 0 451.847 451.847"
-                              xml:space="preserve"
-                              focusable="false"
-                              class="icon-xs fill-primary"
+                      <v-collapse-group :onlyOneActive="true">
+                        <tr>
+                          <td colspan="5" class="p-0 brd-0">
+                            <v-collapse-wrapper
+                              v-on:onStatusChange="activeCollapse"
                             >
-                              <g>
-                                <path
-                                  d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z"
-                                />
-                              </g>
-                            </svg>
-                            Option 1
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>1</td>
-                        <td>COP</td>
-                        <td>Fijo</td>
-                        <td>1</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>17</td>
-                        <td>COP</td>
-                        <td>Porcentaje</td>
-                        <td>2</td>
-                      </tr>
+                              <table>
+                                <tr class="tablerow-js">
+                                  <td colspan="5" class="text-left">
+                                    <div v-collapse-toggle>
+                                      <button
+                                        type="button"
+                                        class="btn__expando-row link-button"
+                                      >
+                                        <svg
+                                          version="1.1"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          x="0px"
+                                          y="0px"
+                                          width="451.847px"
+                                          height="451.847px"
+                                          viewBox="0 0 451.847 451.847"
+                                          style="
+                                            enable-background: new 0 0 451.847
+                                              451.847;
+                                          "
+                                          xml:space="preserve"
+                                          focusable="false"
+                                          class="icon-xs fill-primary arrow-svg"
+                                        >
+                                          <g>
+                                            <path
+                                              d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z"
+                                            />
+                                          </g>
+                                        </svg>
+                                      </button>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td colspan="5" class="p-0 brd-0">
+                                    <div
+                                      class="accordion__content"
+                                      v-collapse-content
+                                    >
+                                      <template>
+                                        <tr class="tablerow-js">
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                        </tr>
+                                      </template>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table>
+                            </v-collapse-wrapper>
+                          </td>
+                        </tr>
+                      </v-collapse-group>
                     </tbody>
                   </table>
                 </div>
@@ -293,7 +306,7 @@
                       <div class="modal__occupancy">
                         <select class="form-control" v-model="selectedOccup">
                           <option disabled value="">
-                            Por favor, seleccione uno
+                            Selecciona una opción
                           </option>
                           <option
                             v-for="(option, index) in options"
@@ -618,8 +631,8 @@
                   </div>
                 </modal>
                 <div class="table-div mt-15">
-                  <table class="table">
-                    <thead>
+                  <table class="table table-js">
+                    <thead class="tablehead-js">
                       <tr>
                         <th>Opciones</th>
                         <th>Edad desde</th>
@@ -629,91 +642,76 @@
                         <th>Valor</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <v-collapse-group :onlyOneActive="true">
                       <tr>
-                        <td colspan="6">
-                          <button class="btn__expando-row link-button">
-                            <svg
-                              version="1.1"
-                              xmlns="http://www.w3.org/2000/svg"
-                              xmlns:xlink="http://www.w3.org/1999/xlink"
-                              x="0px"
-                              y="0px"
-                              width="451.847px"
-                              height="451.847px"
-                              viewBox="0 0 451.847 451.847"
-                              style="enable-background: new 0 0 451.847 451.847"
-                              xml:space="preserve"
-                              focusable="false"
-                              class="icon-xs fill-primary"
-                            >
-                              <g>
-                                <path
-                                  d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z"
-                                />
-                              </g>
-                            </svg>
-                            Apartamento Deluxe con acceso al spa
-                          </button>
+                        <td colspan="6" class="p-0 brd-0">
+                          <v-collapse-wrapper
+                            v-on:onStatusChange="activeCollapse"
+                          >
+                            <table>
+                              <tr class="tablerow-js">
+                                <td colspan="6" class="text-left">
+                                  <div v-collapse-toggle>
+                                    <button
+                                      type="button"
+                                      class="btn__expando-row link-button"
+                                    >
+                                      <svg
+                                        version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        x="0px"
+                                        y="0px"
+                                        width="451.847px"
+                                        height="451.847px"
+                                        viewBox="0 0 451.847 451.847"
+                                        style="
+                                          enable-background: new 0 0 451.847
+                                            451.847;
+                                        "
+                                        xml:space="preserve"
+                                        focusable="false"
+                                        class="icon-xs fill-primary arrow-svg"
+                                      >
+                                        <g>
+                                          <path
+                                            d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z"
+                                          />
+                                        </g>
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colspan="6" class="p-0 brd-0">
+                                  <div
+                                    class="accordion__content"
+                                    v-collapse-content
+                                  >
+                                    <template>
+                                      <tr class="tablerow-js">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                      </tr>
+                                    </template>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                          </v-collapse-wrapper>
                         </td>
                       </tr>
-                      <tr>
-                        <td></td>
-                        <td>0</td>
-                        <td>17</td>
-                        <td>COP</td>
-                        <td>Gratis</td>
-                        <td>1</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>0</td>
-                        <td>17</td>
-                        <td>COP</td>
-                        <td>Gratis</td>
-                        <td>2</td>
-                      </tr>
-                      <tr>
-                        <td colspan="6">
-                          <button class="btn__expando-row link-button">
-                            <svg
-                              version="1.1"
-                              xmlns="http://www.w3.org/2000/svg"
-                              xmlns:xlink="http://www.w3.org/1999/xlink"
-                              x="0px"
-                              y="0px"
-                              width="451.847px"
-                              height="451.847px"
-                              viewBox="0 0 451.847 451.847"
-                              style="enable-background: new 0 0 451.847 451.847"
-                              xml:space="preserve"
-                              focusable="false"
-                              class="icon-xs fill-primary"
-                            >
-                              <g>
-                                <path
-                                  d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z"
-                                />
-                              </g>
-                            </svg>
-                            opcion 1
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>0</td>
-                        <td>17</td>
-                        <td>COP</td>
-                        <td>Gratis</td>
-                        <td>2</td>
-                      </tr>
-                    </tbody>
+                    </v-collapse-group>
                   </table>
                 </div>
               </div>
 
-              <div id="check_in_out">
+              <div id="check_in_out" v-if="category === 'Alojamientos'">
                 <fieldset>
                   <legend>Horarios</legend>
                   <p>
@@ -1086,6 +1084,7 @@
 <script>
 import service from "@/services/service.js";
 //import { numeric } from "vuelidate/lib/validators";
+import shared from "@/shared";
 
 export default {
   components: {},
@@ -1180,6 +1179,11 @@ export default {
     this.typesMoney = response5.data;
 
     this.getData();
+  },
+  updated: function () {
+    this.$nextTick(function () {
+      shared.adjustTableWidth();
+    });
   },
   metaInfo: {
     title: "Condiciones",
@@ -1308,9 +1312,10 @@ export default {
         return { moneda: option.moneda, opcion: option.id };
       });
       console.log(moneyEachOption);
-      console.log(tarifas);
 
-      //work Ok if I have data in tarifas but if tarifas is empty not work
+      //work Ok if I have data in tarifas but if tarifas is empty not work For example:
+      //http://localhost:8080/condiciones-detalle/5
+
       let newCancelaciones = [];
       for (let j = 0; j < this.options.length; j++) {
         for (let i = 0; i < cancelaciones.length; i++) {
@@ -1329,7 +1334,13 @@ export default {
         }
       }
       this.cancelaciones = newCancelaciones;
-      console.log(newCancelaciones);
+
+      const cancelGroup = this.cancelaciones.reduce((acc, item) => {
+        acc[`option_${item.opcion}`] = acc[`option_${item.opcion}`] || [];
+        acc[`option_${item.opcion}`].push(item);
+        return acc;
+      }, {});
+      console.log(cancelGroup);
 
       let newTarifas = [];
       for (let j = 0; j < this.options.length; j++) {
@@ -1350,6 +1361,13 @@ export default {
         }
       }
       this.tarifas = newTarifas;
+
+      const tarifasGroup = this.tarifas.reduce((acc, item) => {
+        acc[`option_${item.opcion}`] = acc[`option_${item.opcion}`] || [];
+        acc[`option_${item.opcion}`].push(item);
+        return acc;
+      }, {});
+      console.log(tarifasGroup);
 
       //Is good this. I need to load the div when the array is empty
       if (llegadas.length !== 0) {
@@ -1382,7 +1400,7 @@ export default {
           window.validateFocusElement();
         });
       } else {
-        //let data;
+        // let data;
         let body = {};
 
         body["cancelaciones"] = this.cancelaciones;
@@ -1659,5 +1677,59 @@ export default {
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE4LjEuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMTMuMDUgMTMuMDUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDEzLjA1IDEzLjA1OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Zz4NCgk8Y2lyY2xlIHN0eWxlPSJmaWxsOiM2NDY0NjQ7IiBjeD0iNi41MjUiIGN5PSI2LjUyNSIgcj0iNi41MjUiLz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K");
+}
+.btn__expando-row {
+  width: auto;
+  cursor: default;
+  font-weight: 600;
+}
+.v-collapse-toggler {
+  width: auto;
+  display: inline-block;
+}
+.v-collapse-toggler button {
+  cursor: pointer;
+}
+.v-collapse-toggler:after {
+  display: none;
+}
+.active_collapse .arrow-svg {
+  transform: rotate(180deg);
+}
+.v-collapse-toggler {
+  background: transparent;
+  padding: 0;
+}
+.vc-collapse {
+  border: none;
+  box-shadow: none;
+}
+.p-0 {
+  padding: 0;
+}
+.brd-0 {
+  border: none;
+}
+.brd-r-0 {
+  border-right: none;
+}
+.brd-l-0 {
+  border-left: none;
+}
+.table-js * {
+  box-sizing: border-box;
+}
+.table-js table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+.table-js thead,
+.table-js tbody tr {
+  display: table;
+  width: 100%;
+}
+.text-left {
+  text-align: left;
 }
 </style>
