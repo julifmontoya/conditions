@@ -468,6 +468,37 @@ button.cross {
   transition: max-height 0.3s ease-in;
   max-height: 100%;
 }
+.p-0{
+  padding: 0 !important;
+}
+.brd-0{
+  border: none !important;
+}
+.brd-r-0{
+  border-right: none;
+}
+.brd-l-0{
+  border-left: none;
+}
+.table-js *{
+  box-sizing: border-box !important;
+}
+.table-js table{
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+.table-js thead, .table-js tbody tr {
+    display: table;
+    width: 100%;
+}
+.text-left{
+  text-align: left !important;
+}
+/*table td, table th { overflow-wrap: anywhere; }*/
+.table-js table tr{
+    table-layout: fixed;
+  }
 /* ==========================================================================
    Validation
  ========================================================================== */
