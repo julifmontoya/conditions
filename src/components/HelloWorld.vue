@@ -10,6 +10,14 @@
         >Conditions</router-link
       >
       |
+      <router-link
+        :to="{
+          name: 'DealsList',
+          params: { id: 1 },
+        }"
+        >DealsList</router-link
+      >
+      |
       <a href="javascript:void(0)" title="Cerrar sesión" @click="logOut">
         <span class="text-icon">Cerrar sesión</span></a
       >
