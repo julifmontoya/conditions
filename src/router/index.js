@@ -39,6 +39,21 @@ const routes = [
     name: "ConditionsCreate",
     component: () => import("../views/Conditions.vue"),
   },
+  {
+    path: "/ofertas-listado/:id",
+    name: "DealsList",
+    component: () => import("../views/DealsList.vue"),
+  },
+  {
+    path: "/ofertas-detalle/:id",
+    name: "DealsEdit",
+    component: () => import("../views/Deals.vue"),
+  },
+  {
+    path: "/ofertas-detalle-crear/:id",
+    name: "DealsCreate",
+    component: () => import("../views/Deals.vue"),
+  },
 ];
 
 const router = new VueRouter({
